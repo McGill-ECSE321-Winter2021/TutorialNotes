@@ -64,7 +64,7 @@ vue-cli · Generated "eventregistration-frontend".
 . Rename the generated directory to match the naming convention applied for the backend project
 +
 ```
-mv eventregistration-frontend/ EventRegistration-Frontent
+mv eventregistration-frontend/ EventRegistration-Frontend
 ```
 
 . Now execute the following commands (one after the other)

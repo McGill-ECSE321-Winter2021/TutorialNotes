@@ -1,13 +1,10 @@
 === Additional steps in the tutorial
 
-[IMPORTANT]
-Solutions have been added to this section shortyl after the school closure due to the pandemic was announced. See completed version at https://github.com/imbur/eventregistration-w2020
+==== Managing events
 
-==== [line-through]#Steps to complete# Managing events
+// [line-through]#The description of the next steps is intentionally high-level and sketchy to force you to face and solve several emerging problems.#
 
-[line-through]#The description of the next steps is intentionally high-level and sketchy to force you to face and solve several emerging problems.#
-
-[line-through]#You need to provide the following functionality by extending the Vue.js component:#
+// [line-through]#You need to provide the following functionality by extending the Vue.js component:#
 
 1. **List all events (name, eventDate, startTime, endTime)**
 ** Introduce an array **events** in the frontend data store
