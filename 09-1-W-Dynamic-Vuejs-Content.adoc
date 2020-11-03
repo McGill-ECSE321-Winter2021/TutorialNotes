@@ -31,7 +31,7 @@ export default {
   name: 'eventregistration',
   data () {
     return {
-      people: [],
+      persons: [],
       newPerson: '',
       errorPerson: '',
       response: []
@@ -46,12 +46,12 @@ export default {
 [source,javascript]
 ----
 created: function () {
-  // Test data
-  const p1 = new PersonDto('John')
-  const p2 = new PersonDto('Jill')
-  // Sample initial content
-  this.people = [p1, p2]
-},
+    // Test data
+    const p1 = new PersonDto('John')
+    const p2 = new PersonDto('Jill')
+    // Sample initial content
+    this.persons = [p1, p2]
+  },
 ----
 
 1. Add event handling method  **createPerson()**:
@@ -59,14 +59,14 @@ created: function () {
 [source,javascript]
 ----
 methods: {
-  createPerson: function (personName) {
-    // Create a new person and add it to the list of people
-    var p = new PersonDto(personName)
-    this.people.push(p)
-    // Reset the name field for new people
-    this.newPerson = ''
+    createPerson: function (personName) {
+      // Create a new person and add it to the list of people
+      var p = new PersonDto(personName)
+      this.persons.push(p)
+      // Reset the name field for new people
+      this.newPerson = ''
+    }
   }
-}
 ----
 
 ==== Create dynamic data bindings
@@ -86,19 +86,28 @@ dynamically print their name by `{{ person.name }}` (see https://vuejs.org/v2/gu
 +
 [source,xml]
 ----
-<table>
-  <tr v-for="person in people" >
-      <td>{{ person.name }}</td>
-      <td>
-        <ul>
-          <li v-for="event in person.events">
-            {{event.name}}
-          </li>
-        </ul>
-      </td>
-  </tr>
-<!-- ... -->
-</table>
+<template>
+  <div id="eventregistration">
+    <h2>Persons</h2>
+    <table id="persons_table">
+      <tr>
+        <th>Name</th>
+        <th>Events</th>
+      </tr>
+      <tr v-for="(person, i) in persons" v-bind:key="`person-${i}`">
+        <td>{{person.name}}</td>
+        <td>
+          <ul>
+            <li v-for="(event, i) in person.events" v-bind:key="`event-${i}`" style="list-style-type: disc;">
+              <span class='registration-event-name'>{{event.name}}</span>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    <!-- ... -->
+    </table>
+  </div>
+</template>
 ----
 
 1. Link input field content with data variable `newPerson` and
@@ -110,11 +119,13 @@ button clicks for **Create Person** for event handler method  `createPerson()`.
   <!-- ... -->
   <tr>
     <td>
-        <input type="text" v-model="newPerson" placeholder="Person Name">
+      <input id="create_person_person_name" type="text" v-model="newPerson" placeholder="Person Name">
     </td>
     <td>
-        <button @click="createPerson(newPerson)">Create Person</button>
+      <button id="create_person_button" @click="createPerson(newPerson)">Create Person</button>
     </td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 ----
