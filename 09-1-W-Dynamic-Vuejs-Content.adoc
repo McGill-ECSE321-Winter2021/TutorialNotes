@@ -89,21 +89,17 @@ dynamically print their name by `{{ person.name }}` (see https://vuejs.org/v2/gu
 <template>
   <div id="eventregistration">
     <h2>Persons</h2>
-    <table id="persons_table">
-      <tr>
-        <th>Name</th>
-        <th>Events</th>
-      </tr>
-      <tr v-for="(person, i) in persons" v-bind:key="`person-${i}`">
-        <td>{{person.name}}</td>
-        <td>
-          <ul>
-            <li v-for="(event, i) in person.events" v-bind:key="`event-${i}`" style="list-style-type: disc;">
-              <span class='registration-event-name'>{{event.name}}</span>
-            </li>
-          </ul>
-        </td>
-      </tr>
+      <table>
+        <tr v-for="person in persons" >
+            <td>{{ person.name }}</td>
+            <td> 
+              <ul>
+                <li v-for="event in person.events">
+                  {{event.name}}
+                </li>
+              </ul>
+            </td>
+        </tr>
     <!-- ... -->
     </table>
   </div>
@@ -117,16 +113,14 @@ button clicks for **Create Person** for event handler method  `createPerson()`.
 ----
 <table>
   <!-- ... -->
-  <tr>
+<tr>
     <td>
-      <input id="create_person_person_name" type="text" v-model="newPerson" placeholder="Person Name">
+        <input type="text" v-model="newPerson" placeholder="Person Name">
     </td>
     <td>
-      <button id="create_person_button" @click="createPerson(newPerson)">Create Person</button>
+        <button v-bind:disabled="!newPerson" @click="createPerson(newPerson)">Create Person</button>
     </td>
-    <td></td>
-    <td></td>
-  </tr>
+</tr>
 </table>
 ----
 

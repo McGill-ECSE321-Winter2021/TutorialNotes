@@ -41,23 +41,28 @@ Update your _EventRegistration.vue_:
     <span v-if="errorPerson" style="color:red">Error: {{errorPerson}}</span>
     <!-- This line above is the last line of the section we added in the previous section -- this is only here to ease the navigation in the code -->
 
-    <hr>
-    <h2>Events</h2>
-    <table id='events-table'>
-      <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Start</th>
-        <th>End</th>
-      </tr>
-      <tr v-for="(event, i) in events" v-bind:id="event.name" v-bind:key="`event-${i}`">
-        <td v-bind:id="`${event.name.replace(/\s/g, '_')}-name`">{{event.name}}</td>
-        <td v-bind:id="`${event.name.replace(/\s/g, '_')}-date`">{{event.eventDate}}</td>
-        <td v-bind:id="`${event.name.replace(/\s/g, '_')}-starttime`">{{event.startTime}}</td>
-        <td v-bind:id="`${event.name.replace(/\s/g, '_')}-endtime`">{{event.endTime}}</td>
-      </tr>
-    </table>
-    <hr>
+<hr>
+  <h2>Events</h2>
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Date</th>
+      <th>Start</th> 
+      <th>End</th>
+      <!--<th>Edit</th>-->
+    </tr>
+    <tr v-for="event in events">
+      <td>{{ event.name }}</td>
+      <td>{{ event.eventDate }}</td>
+      <td>{{ event.startTime }}</td>
+      <td>{{ event.endTime }}</td>
+      <!--<td>
+        <button v-on:click="updateEvent(event.name)">Edit</button>
+      </td>-->
+    </tr>
+  </table>
+      <span v-if="errorEvent" style="color:red">Error: {{errorEvent}} </span>
+<hr>
 ```
 
 
@@ -84,23 +89,24 @@ Update _EventRegistration.vue_
 +
 ```html
       <!-- Add this to the bottom of the table created for displaying events -->
-      <tr>
-        <td>
-          <input id="event-name-input" type="text" v-model="newEvent.name" placeholder="Event Name">
-        </td>
-        <td>
-          <input id="event-date-input" type="date" v-model="newEvent.eventDate" placeholder="YYYY-MM-DD">
-        </td>
-        <td>
-          <input id="event-starttime-input" type="time" v-model="newEvent.startTime" placeholder="HH:mm">
-        </td>
-        <td>
-          <input id="event-endtime-input" type="time" v-model="newEvent.endTime" placeholder="HH:mm">
-        </td>
-        <td>
-          <button id="event-create-button" v-bind:disabled="!newEvent.name" v-on:click="createEvent(newEvent)">Create</button>
-        </td>
-      </tr>
+  <tr>
+      <td>
+        <input type="text" v-model="newEvent.name" placeholder="Event Name">
+      </td>
+      <td>
+        <input type="date" v-model="newEvent.eventDate" placeholder="YYYY-MM-DD">
+      </td>
+      <td>
+        <input type="time" v-model="newEvent.startTime" placeholder="HH:mm">
+      </td>
+      <td>
+        <input type="time" v-model="newEvent.endTime" placeholder="HH:mm">
+      </td>
+      <td>
+        <button 
+          <button v-bind:disabled="!newEvent.name" v-on:click="createEvent(newEvent.name, newEvent.eventDate, newEvent.startTime, newEvent.endTime)">Create</button>
+      </td>
+  </tr>
 ```
 
 ** Introduce an object **errorEvent** for error message related to event creation
@@ -112,7 +118,7 @@ its appearance condition to the content of the error message
 Update _EventRegistration.vue_: add the following code to the event table
 +
 ```html
-    <span id="event-error" v-if="errorEvent" style="color:red">Error: {{errorEvent}}</span>
+    <span v-if="errorEvent" style="color:red">Error: {{errorEvent}} </span>
 ```
 
 1. **Register a person to an event** (when a new event should occur in the
@@ -135,55 +141,58 @@ the list of people.
 The solution for the above bullet points (goes to _EventRegistration.vue_):
 +
 ```html
-    <hr>
+  <hr>
     <h2>Registrations</h2>
-    <label>Person:
-      <select id='registration-person-select' v-model="selectedPerson">
+    <label>Person:     
+      <select v-model="selectedPerson">
         <option disabled value="">Please select one</option>
-        <option v-for="(person, i) in persons" v-bind:key="`person-${i}`">{{person.name}}</option>
+        <option v-for="person in persons" >
+          {{ person.name }}
+        </option>
       </select>
     </label>
-    <label>Event:
-      <select id='registration-event-select' v-model="selectedEvent">
+    <label>Event:     
+      <select v-model="selectedEvent">
         <option disabled value="">Please select one</option>
-        <option v-for="(event, i) in events" v-bind:key="`event-${i}`">{{event.name}}</option>
+        <option v-for="event in events" >
+          {{ event.name }}
+        </option>
       </select>
     </label>
-    <button id='registration-button' v-bind:disabled="!selectedPerson || !selectedEvent" @click="registerEvent(selectedPerson, selectedEvent)">Register</button>
-    <br/>
-    <span v-if="errorRegistration" style="color:red">Error: {{errorRegistration}}</span>
+    <button v-bind:disabled="!selectedPerson || !selectedEvent" @click="registerEvent(selectedPerson,selectedEvent)">Register</button>
     <hr>
 ```
 * Implement the register method in _registration.js_:
 +
 ```javascript
-    registerEvent: function (personName, eventName) {
-      let event = this.events.find(x => x.name === eventName);
-      let person = this.persons.find(x => x.name === personName);
-      let params = {
-        person: person.name,
-        event: event.name
-      };
-
-      AXIOS.post('/register', {}, {params: params})
+        registerEvent: function (personName, eventName) {
+      var indexEv = this.events.map(x => x.name).indexOf(eventName)
+      var indexPart = this.persons.map(x => x.name).indexOf(personName)
+      var person = this.persons[indexPart]
+      var event = this.events[indexEv]
+      AXIOS.post('/register', {},
+        {params: {
+          person: person.name,
+          event: event.name}})
       .then(response => {
+        // Update appropriate DTO collections
         person.events.push(event)
-        this.selectedPerson = '';
-        this.selectedEvent = '';
-        this.errorRegistration = '';
+        this.selectedPerson = ''
+        this.selectedEvent = ''
+        this.errorRegistration = ''
       })
       .catch(e => {
-        e = e.response.data.message ? e.response.data.message : e;
-        this.errorRegistration = e;
-        console.log(e);
-      });
+        var errorMsg = e
+        console.log(errorMsg)
+        this.errorRegistration = errorMsg
+      })
     },
 ```
 
 
 . To run your applicaiton, use `npm install` and `npm run dev`
 
-. See https://github.com/imbur/eventregistration-w2020 for the completed solution
+. See https://github.com/Rijul5/eventregistration3 for the completed solution
 
 ==== Further documentation
 * Vue.js guide: https://vuejs.org/v2/guide/
