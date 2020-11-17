@@ -3,7 +3,7 @@
 
 1. Click on the _AVD manager_ button in Android Studio near the top right corner of the window
 +
-image:figs/create-virtual-device.png[Open terminal]
+image:figs/Android-AVD.png[Open terminal]
 
 1. Add a new device with default settings.
 +

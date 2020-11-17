@@ -17,35 +17,35 @@ text.
 image:figs/Android-HelloWorld.png[Android Hello World] +
 [source,xml]
 ----
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-    
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
             android:id="@+id/error"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:visibility="gone"
             android:text=""
-            android:textColor="@color/colorAccent"/>
+            android:textColor="#FF0000"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/newperson_name"
-        android:hint="@string/newperson_hint"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newperson_name"
+            android:hint="@string/newperson_hint"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="@string/newperson_button"
-        android:onClick="addPerson"/>
-</LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/newperson_button"
+            android:onClick="addPerson"/>
+    </LinearLayout>
 ----
 
 ** **LinearLayout** declares a vertical layout to hold the GUI elements;
