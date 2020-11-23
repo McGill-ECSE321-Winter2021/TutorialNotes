@@ -16,6 +16,6 @@ image:figs/android-studio-deploy.png[Select system image]
 
 1. After you select the device (in this case Nexus 5X) as deployment target, the application will automatically be deployed and started within an Android VM, and it is ready to use. Be patient, deployment and startup may take a few seconds.
 
-1. Leave the text field empty, then try adding a person. You should get an error message on screen saying a person cannot be added with no name.
-
 1. Supply a name for a new person, then try adding it. Upon successful completion, the text field and the error message should clear.
+
+1. Supply the same name in the text field and then try adding the person. You should get an error message on screen "Person has already been created".

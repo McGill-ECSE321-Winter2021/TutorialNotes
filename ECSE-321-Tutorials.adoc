@@ -65,7 +65,7 @@ include::{chapterdir}/06-1-B-Backend-Service-Testing.adoc[]
 <<<
 include::{chapterdir}/07-1-B-Test-Coverage.adoc[]
 
-== Web Frontent
+== Web Frontend
 
 <<<
 include::{chapterdir}/08-1-W-Install-Vue.adoc[]
@@ -93,6 +93,6 @@ include::{chapterdir}/10-2-M-Develop-Android-Part-1.adoc[]
 <<<
 include::{chapterdir}/10-3-M-Run-Virtual-Device.adoc[]
 
-// <<<
-// include::{chapterdir}/11-1-M-Develop-Android-Part-2.adoc[]
+<<<
+include::{chapterdir}/11-1-M-Develop-Android-Part-2.adoc[]
 
