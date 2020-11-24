@@ -7,11 +7,11 @@
 ```bash
 git checkout --orphan android
 git reset
-rm ./* .gitignore
+rm -rf ./* .gitignore
 ```
 [NOTE]
 One-liner command that does the same for those who like living dangerously: +
-`git checkout --orphan android && git reset && rm ./* .gitignore`
+`git checkout --orphan android && git reset && rm -rf ./* .gitignore`
 
 === Create an Android project
 
