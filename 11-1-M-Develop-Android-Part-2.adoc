@@ -170,14 +170,15 @@ public void setDate(int id, int d, int m, int y) {
 <LinearLayout
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
     <TextView
         android:id="@+id/error"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:visibility="gone"
         android:text=""
-        android:textColor="@color/colorAccent"/>
+        android:textColor="#FF0000"/>
 
     <LinearLayout
         android:layout_height="wrap_content"
