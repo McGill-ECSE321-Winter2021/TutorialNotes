@@ -27,7 +27,7 @@ Backslashes in this snippet indicate linebreaks in this one liner command typed 
 
 . Navigate to the _EventRegistration-Backend_ folder
 
-. For future use, locate the _application.properties_ file in the _src/_ folder and add the following content: 
+. For future use, locate the _application.properties_ file in the _src/main/resources_ folder and add the following content: 
 +
 ```
 server.port=${PORT:8080}
